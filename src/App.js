@@ -1,3 +1,6 @@
+/*
+
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -23,3 +26,50 @@ function App() {
 }
 
 export default App;
+*/
+
+
+import { useState, useEffect } from 'react';
+
+function App() {
+
+  const [articulos, setArticulos] = useState([])
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => {
+        return response.json()
+      })
+      .then((articulos) => {
+        setArticulos(articulos)
+      })
+  }, [])
+
+  return (
+    <div>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Usuario</th>
+	   <th>correo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {articulos.map(art => {
+            return (
+              <tr key={art.id}>
+                <td>{art.name}</td>
+                <td>{art.username}</td>
+                <td>{art.email}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default App
